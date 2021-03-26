@@ -1,7 +1,7 @@
 {
-  "name": "starter-template",
+  "name": "star-rating-ui",
   "version": "1.0.0",
-  "description": "starter-template",
+  "description": "Star Rating plugin stars",
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --env mode=development",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/marif0025/star-ratings.git"
   },
   "author": "Muhammad Arif",
   "license": "ISC",
@@ -24,7 +24,6 @@
     "postcss-preset-env": "^6.7.0",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
-    "svg-sprite-loader": "^6.0.2",
     "ts-loader": "^8.0.18",
     "typescript": "^4.2.3",
     "webpack": "^5.27.0",

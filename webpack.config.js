@@ -1,15 +1,15 @@
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-
 const path = require('path')
-const Webpack = require('webpack');
 
 module.exports = ({ mode }) => ({
     mode: mode,
     entry: './src/ts',
     output: {
         filename: "js/script.js",
-        path: path.resolve(__dirname, 'public/assets')
+        path: path.resolve(__dirname, 'public/assets'),
+        libraryTarget: 'umd',
+        library: 'ratingPlugin',
+        libraryExport: 'default'
     },
     resolve: {
         extensions: ['.ts', '.js']
@@ -33,11 +33,6 @@ module.exports = ({ mode }) => ({
                     "postcss-loader",
                     "sass-loader"
                 ]
-            },
-            {
-                test: /\.svg$/,
-                loader: 'svg-sprite-loader',
-                options: {}
             }
         ]
     },
@@ -51,14 +46,6 @@ module.exports = ({ mode }) => ({
     plugins: [
         new MiniCssExtractPlugin({
             filename: "css/style.css"
-        }),
-        new Webpack.ProvidePlugin({
-            $: 'jquery',
-            jQuery: 'jquery',
-            'window.jQuery': 'jquery'
-        }),
-        new SpriteLoaderPlugin({
-            plainSprite: true
         })
     ],
     performance: {

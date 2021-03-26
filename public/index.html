@@ -6,13 +6,50 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Document</title>
+    <title>Star Rating</title>
 </head>
 
 <body>
-    <h1>hi</h1>
+    <header>
+        <div class="container">
+            <nav>
+                <ul class="menu">
+                    <li><a href="index.html" class="menu-link">home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="rating-container">
+            <div class="rating-item">
+                <label for="">rated item</label>
+                <div class="ratings rated" data-rating="3.8"></div>
+            </div>
+
+            <div class="rating-item">
+                <label for="">open for rating</label>
+                <div class="ratings" data-rating="2.4"></div>
+            </div>
+
+            <div class="rating-item">
+                <label for="">starts with '0' rating</label>
+                <div class="ratings"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="assets/js/script.js"></script>
+
+    <script>
+        ratingPlugin.init({
+            selector: 'ratings',
+            onChange: (el, value) => {
+                console.log('Rating Value : ', value);
+                ratingPlugin.setRating(el, 3.5)
+            }
+        })
+    </script>
 </body>
 
 </html>
