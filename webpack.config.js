@@ -3,9 +3,12 @@ const path = require('path')
 
 module.exports = ({ mode }) => ({
     mode: mode,
-    entry: './src/ts',
+    entry: {
+        index: './src/ts/index.ts',
+        ratings: './src/ts/ratings.ts'
+    },
     output: {
-        filename: "js/script.js",
+        filename: "js/[name].js",
         path: path.resolve(__dirname, 'public/assets'),
         libraryTarget: 'umd',
         library: 'ratingPlugin',
@@ -45,7 +48,7 @@ module.exports = ({ mode }) => ({
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: "css/style.css"
+            filename: "css/[name].css"
         })
     ],
     performance: {
