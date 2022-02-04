@@ -21,7 +21,10 @@ const ratingPlugin = {
         const ratingElements: NodeListOf<HTMLElement> = document.querySelectorAll(`.${SELECTOR_CLASS}`)
 
         ratingElements.forEach(el => {
-            createStar(el, STAR_COUNT)
+            const stars = el.querySelectorAll('.rating-star');
+            if (stars.length < 5) {
+                createStar(el, STAR_COUNT)
+            }
             const initialRatingString = el.dataset.rating
             const initialRating = initialRatingString ? Math.ceil(parseFloat(initialRatingString) * 2) : 0
             ratingPlugin.setRating(el, (initialRating / 2))
@@ -29,6 +32,7 @@ const ratingPlugin = {
             if (el.classList.contains(RATED_CLASS)) { return }
 
             const halfStars = el.querySelectorAll(`.${HALF_STAR_CLASS}`)
+            const fullStars = el.querySelectorAll('.rating-star');
 
             el.addEventListener('mouseleave', (e) => {
                 if (el.classList.contains(RATED_CLASS)) { return }
@@ -37,19 +41,24 @@ const ratingPlugin = {
                 ratedItems.forEach(item => item.classList.add(FAV_CLASS))
             })
 
-            halfStars.forEach((star, index) => {
-                star.addEventListener('click', (e) => {
-                    let ratingCount = (index + 1) / 2
-                    onChange && onChange(el, ratingCount)
-                    el.classList.add(RATED_CLASS)
-                })
-
+            fullStars.forEach((star, index) => {
                 star.addEventListener('mouseenter', () => {
                     if (el.classList.contains(RATED_CLASS)) { return }
 
-                    let ratedItems = Array.from(halfStars).slice(0, index + 1)
-                    ratingPlugin.reset(halfStars, FAV_CLASS)
-                    ratedItems.forEach(item => item.classList.add(FAV_CLASS))
+                    let ratedItems = Array.from(fullStars).slice(0, index + 1)
+                    ratingPlugin.reset(halfStars, FAV_CLASS);
+
+                    ratedItems.forEach(item => {
+                        const hs = item.querySelectorAll('.half-star')
+                        hs.forEach(h => h.classList.add('faved'))
+                    })
+                })
+
+                star.addEventListener('click', (e) => {
+                    let ratingCount = (index + 1)
+
+                    onChange && onChange(el, ratingCount)
+                    el.classList.add(RATED_CLASS)
                 })
             })
         })
